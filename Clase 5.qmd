@@ -1,0 +1,56 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+#carga el paquete
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyselect)
+
+ggplot(dataset.barrios) + geom_histogram(aes(x=INGRESO),
+                                fill = "skyblue",color="blue")
+                                          
+
+
+
+
+```
+
+```{r}
+summarise(dataset.barrios, ingreso_mediana=mean(INGRESO))
+summarise(dataset.barrios, ingreso_madianda=median(INGRESO))
+```
+
+```{r}
+barrios_agrupados <- group_by(dataset.barrios,cluster)
+barrios_agrupados
+```
+
+```{r}
+dataset.barrios|>
+  summarise(ingreso_IQR=IQR(INGRESO))
+```
+
+```{r}
+barrios_agrupados|>summarise(IQR_ingreso,0,75) IQR(INGRESO)
+```
+
+```{r}
+dogs <- read.csv("https://data.cambridgema.gov/api/views/sckh-3xyx/rows.csv") 
+# Manipulación útil a la que vamos a volver más adelante 
+dogs_top5 <- dogs |> mutate(Breed = case_when(                       
+  Dog_Breed
+                                                                     == "Mixed Breed" ~ "Mixed",                       Dog_Breed != "Mixed Breed" ~ "Single")) |> filter(Dog_Name %in% c("Luna", "Charlie", "Lucy", "Cooper", "Rosie" ))
+```
+
+```{r}
+ count(dogs_top5, Dog_Name)
+```
+
+```{r}
+ggplot(data dogs_top5)
+```
